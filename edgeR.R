@@ -1,0 +1,10 @@
+data=read.table("6_vs_7+",header=TRUE,row.names=1)
+group=c(rep("A",7),rep("B",2))
+cds=DGEList(count=data,group=factor(group))
+cds=calcNormFactors(cds)
+cds=estimateCommonDisp(cds)
+cds=estimateTagwiseDisp(cds)
+et=exactTest(cds,pair=c("A","B"))
+ed=topTags(et,n=12263)
+write.table(ed,"edgeR_6_vs_7+")
+
